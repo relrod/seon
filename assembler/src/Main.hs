@@ -10,7 +10,7 @@ generateOpcode :: Instruction -> Address -> AssembleResult Word8
 generateOpcode NOP  Inherent = OpCode 0x12 Inherent
 generateOpcode ADDA a@(Immediate _) = OpCode 0x8b a
 generateOpcode LDA  a@(Immediate _) = OpCode 0x86 a
-generateOpcode STA  a@(Direct _)    = OpCode 0x86 a
+generateOpcode STA  a@(Direct _)    = OpCode 0x97 a
 generateOpcode _    _               = InvalidAddressingMode
 
 -- TODO: How the hell does Word16 fit in here
