@@ -7,8 +7,20 @@ import System.IO
 import Types
 
 generateOpcode :: Instruction -> Address -> AssembleResult Word8
-generateOpcode NOP  Inherent = OpCode 0x12 Inherent
+generateOpcode ABX  Inherent        = OpCode 0x3a Inherent
+generateOpcode ADCA a@(Immediate _) = OpCode 0x89 a
+generateOpcode ADCA a@(Direct _)    = OpCode 0x99 a
+--generateOpcode ADCA a@(Indexed _)   = OpCode 0xa9 a
+generateOpcode ADCA a@(Extended _)  = OpCode 0xb9 a
+generateOpcode ADCB a@(Immediate _) = OpCode 0xc9 a
+generateOpcode ADCB a@(Direct _)    = OpCode 0xd9 a
+--generateOpcode ADCB a@(Indexed _)   = OpCode 0xe9 a
+generateOpcode ADCB a@(Extended _)  = OpCode 0xf9 a
 generateOpcode ADDA a@(Immediate _) = OpCode 0x8b a
+generateOpcode ADDA a@(Direct _)    = OpCode 0x9b a
+--generateOpcode ADDA a@(Indexed _)   = OpCode 0xab a
+generateOpcode ADDA a@(Extended _)  = OpCode 0xbb a
+generateOpcode NOP  Inherent        = OpCode 0x12 Inherent
 generateOpcode LDA  a@(Immediate _) = OpCode 0x86 a
 generateOpcode STA  a@(Direct _)    = OpCode 0x97 a
 generateOpcode _    _               = InvalidAddressingMode
